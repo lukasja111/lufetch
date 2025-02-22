@@ -1,4 +1,3 @@
 # Note
-I'm currently using the [ghostty](https://github.com/ghostty-org) terminal.
-Displaying the image as non ascii or braille may not always works on other terminals (such as allacrity).
-
+[ ! ] Not all terminals may support displaying image as non-ascii
+[ ! ] Need to be using a nerd-font to display some of the characters

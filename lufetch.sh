@@ -4,27 +4,33 @@
 
 # COLORS
 default='\e[0m' 
-user_color='\033[38;5;27m'
-host_color='\033[38;5;148m' 
-cpu_color='\033[38;5;105m' 
-os_color='\033[38;5;51m' 
-wm_color='\033[38;5;175m' 
-uptime_color='\033[38;5;18m'
+system_color='\033[38;2;242;240;0m'
+picture_color='\033[38;2;114;242;0m'
 
 # preamble
 clear
 user=$(whoami)
 host=$(uname -n)
 cpu=$(lscpu | grep "Model name" | cut -d ":" -f 2 | xargs)
-os=$(lsb_release -d | cut -d ':' -f 2 | xargs)
+os=$(grep -E '^(VERSION|NAME)=' /etc/os-release | cut -d '"' -f2)
 wm=$(wmctrl -m | grep "Name:" | awk '{print $2}')
 uptime=$(uptime --pretty)
 
+# todo will make frame less hard-coded
+#max_len=$(echo -e "$user\n$host\n$cpu\n$os\n$wm\n$uptime" | wc -L) 
+echo -e "$picture_color";
 chafa -f symbols --symbols braille -c none --size=50x25 --align mid,left ~/Pictures/home.jpg;
 
-echo -e "$user_color 󰗍user>$ $user $default";
-echo -e "$host_color host>$ $host $default";
-echo -e "$cpu_color 󰡀cpu>$ $cpu $default";
-echo -e "$os_color os>$ $os $default" "(btw)";
-echo -e "$wm_color 󱎂wm>$ $wm $default";
-echo -e "$uptime_color 󱑂uptime>$ $uptime $default";
+echo -e "$system_color";
+echo -e "╔═══════════════════════════════";
+echo -e "║ System";
+echo -e "╠═══════════════════════════════";
+echo -e "║[󰗍] user>$ $user";
+echo -e "║[] host>$ $host";
+echo -e "║[󰡀] cpu>$ $cpu";
+echo -e "║[] os>$ $os(btw)";
+echo -e "║[󱎂] wm>$ $wm";
+echo -e "║[󱑂] up>$ $uptime";
+echo -e "╚═══════════════════════════════";
+echo -e "$default";
+
